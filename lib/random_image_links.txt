@@ -1,0 +1,17 @@
+wind..
+https://cdn.videoplasty.com/gif/windy-icon-stock-gif-3727-1280x720.gif
+
+sunnny..
+https://cdn.videoplasty.com/gif/sunny-icon-gif-stock-gif-3719-1280x720.gif
+
+raining..
+https://cdn.videoplasty.com/gif/partly-sunny-with-shower-icon-gif-stock-gif-3707-1280x720.gif
+
+cold..
+https://cdn.videoplasty.com/gif/snowflake-icon-gif-stock-gif-3717-1280x720.gif
+
+jsonplaceholder delete
+'https://jsonplaceholder.typicode.com/posts/1'
+
+post/get
+'https://jsonplaceholder.typicode.com/posts/'
