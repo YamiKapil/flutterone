@@ -139,7 +139,9 @@ class _MainPageState extends State<MainPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 23.0,),
+          padding: const EdgeInsets.only(
+            bottom: 23.0,
+          ),
           child: Center(
             key: keyChat,
             child: Column(
@@ -282,7 +284,7 @@ class _MainPageState extends State<MainPage> {
                       context,
                       MaterialPageRoute(
                         // builder: (context) => const AutoFillingSms(),
-                        builder: (context) =>  SmsReader(),
+                        builder: (context) => SmsReader(),
                       ),
                     );
                   },
@@ -294,7 +296,7 @@ class _MainPageState extends State<MainPage> {
                       context,
                       MaterialPageRoute(
                         // builder: (context) => const AutoFillingSms(),
-                        builder: (context) =>  const TelephonySmsReader(),
+                        builder: (context) => const TelephonySmsReader(),
                       ),
                     );
                   },
@@ -306,7 +308,7 @@ class _MainPageState extends State<MainPage> {
                       context,
                       MaterialPageRoute(
                         // builder: (context) =>  const RiverMovieList(),
-                        builder: (context) =>   RiverHome(),
+                        builder: (context) => RiverHome(),
                       ),
                     );
                   },
@@ -365,8 +367,22 @@ class _MainPageState extends State<MainPage> {
       extendBody: false,
       floatingActionButton: FloatingActionButton(
         key: keyContainer,
-        onPressed: () {},
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.skip_next),
+        onPressed: () async {
+          await showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Container(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('hello'),
+                    ],
+                  ),
+                );
+              });
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),

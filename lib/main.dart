@@ -12,6 +12,7 @@ import 'package:flutter_one/flutter_mvvm/user_list/views_models/user_view_model.
 import 'package:flutter_one/localization/l10n.dart';
 import 'package:flutter_one/note_app/provider/language_provider.dart';
 import 'package:flutter_one/note_app/provider/note_provider.dart';
+import 'package:flutter_one/quiz_app/quiz_home.dart';
 import 'package:flutter_one/responsive_ui/size_config.dart';
 import 'package:flutter_one/theme/custom_theme.dart';
 import 'package:flutter_one/theme/theme_provider.dart';
@@ -150,8 +151,8 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.blue,
               ),
               // home: AppUpdate(),
-              home: const MainPage(),
-              // home: const AdvPageMain(),
+              // home: const MainPage(),
+              home: const QuizHome(),
               // home: const ProviderExample(),
               // home: const MyErrorWidget(),
               // home: const NotePage(),
