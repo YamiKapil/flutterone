@@ -20,6 +20,8 @@ class _QuizHomeState extends State<QuizHome> {
   List<int> optionList = [];
   final random = math.Random();
   int rightCount = 0;
+  int highScore = 0;
+  int wrongCount = 0;
   bool isLoading = false;
 
   Future apiCall() async {
@@ -66,9 +68,19 @@ class _QuizHomeState extends State<QuizHome> {
 
   @override
   Widget build(BuildContext context) {
-    log('hello');
+    log(wrongCount.toString(), name: 'wrong count');
     return Scaffold(
       body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage(
+              'assets/images/quiz.png',
+            ),
+          ),
+        ),
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -84,7 +96,22 @@ class _QuizHomeState extends State<QuizHome> {
                 ),
                 child: Align(
                   alignment: Alignment.center,
-                  child: Text('Welcome To QUIZ'),
+                  child: Text(
+                    'Welcome To QUIZ',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'High Score: $highScore',
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -118,14 +145,25 @@ class _QuizHomeState extends State<QuizHome> {
                         alignment: Alignment.centerRight,
                         child: Text('Total Score: ${rightCount.toString()}')),
                     const SizedBox(height: 16),
-                    Image.network(quizModel?.question.toString() ?? ''),
+                    Image.network(quizModel?.question.toString() ?? '',
+                        loadingBuilder: (context, child, loadingProgress) =>
+                            (loadingProgress != null)
+                                ? Image.asset(
+                                    'assets/images/quiz.png',
+                                  )
+                                : child),
                     const SizedBox(height: 16),
                     Wrap(
                       children: optionList
                           .map(
                             (e) => Row(
                               children: [
-                                Text('${optionList.indexOf(e).toString()})'),
+                                Text(
+                                  '${optionList.indexOf(e).toString()})',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                                 const SizedBox(width: 10),
                                 TextButton(
                                   onPressed: () async {
@@ -134,7 +172,8 @@ class _QuizHomeState extends State<QuizHome> {
                                           .showSnackBar(
                                         const SnackBar(
                                           content: Text(
-                                              'Congratulation your answer is correct!!'),
+                                            'Congratulation your answer is correct!!',
+                                          ),
                                         ),
                                       );
                                       rightCount++;
@@ -142,18 +181,39 @@ class _QuizHomeState extends State<QuizHome> {
                                         setState(() {});
                                       });
                                     } else {
+                                      // rightCount--;
+                                      wrongCount++;
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
                                           content: Text(
-                                              'Sorry!! your answer is incorrect'),
+                                            'Sorry!! your answer is incorrect',
+                                          ),
                                         ),
                                       );
+                                    }
+                                    if (wrongCount == 3) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                content: Text(
+                                                    'Congratulation you scored $rightCount'),
+                                                title: const Text('Quiz Ended'),
+                                              ));
+                                      setState(() {
+                                        wrongCount = 0;
+                                        isStart = false;
+                                        (rightCount > highScore)
+                                            ? highScore = rightCount
+                                            : highScore = highScore;
+                                        rightCount = 0;
+                                      });
                                     }
                                   },
                                   child: Text(
                                     e.toString(),
                                     style: const TextStyle(
+                                      color: Colors.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
